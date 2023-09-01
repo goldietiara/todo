@@ -3,11 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { NavLinks } from "@/constants";
 import UserMenuButton from "./UserMenuButton";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
+import AuthProviders from "./AuthProviders";
+import { getCurrentUser } from "@/lib/session";
 
 const NavBar = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await getCurrentUser();
+
   return (
     <nav className="flex m-7">
       <div className=" w-fit pr-10">
@@ -35,7 +37,11 @@ const NavBar = async () => {
           })}
         </ul>
         <div className="  w-[30%] h-full flex justify-center items-center px-5 gap-10 ">
-          <UserMenuButton session={session} />
+          {session?.user ? (
+            <UserMenuButton session={session} />
+          ) : (
+            <AuthProviders />
+          )}
         </div>
       </div>
     </nav>

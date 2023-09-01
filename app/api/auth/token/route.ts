@@ -1,6 +1,11 @@
-import NextAuth from "next-auth";
-import { authOptions } from "../[...nextauth]/route";
+import { env } from "@/lib/env";
+import { getToken } from "next-auth/jwt";
+import { NextRequest, NextResponse } from "next/server";
 
-const handler = NextAuth(authOptions);
+const secret = env.NEXTAUTH_SECRET;
 
-export { handler as GET, handler as POST };
+export async function GET(req: NextRequest) {
+  const token = await getToken({ req, secret, raw: true });
+
+  return NextResponse.json({ token }, { status: 200 });
+}
