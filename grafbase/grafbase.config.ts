@@ -26,3 +26,5 @@ const Todo = g.model("Todo", {
 export default config({
   schema: g,
 });
+
+// test
