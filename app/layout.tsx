@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`flex flex-col justify-between font-light font-serif bg-Ivory ${inter.className}`}
+        className={`flex flex-col justify-between font-light bg-Ivory ${inter.className}`}
       >
         <SessionProvider>
           <NavBar />

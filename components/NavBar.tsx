@@ -34,7 +34,7 @@ const NavBar = async () => {
             );
           })}
         </ul>
-        <div className="  w-[30%] h-full flex justify-center items-center px-5 gap-10 text-sm font-medium ">
+        <div className="  w-[30%] h-full flex justify-center items-center px-5 gap-10 ">
           <UserMenuButton session={session} />
         </div>
       </div>
@@ -43,4 +43,3 @@ const NavBar = async () => {
 };
 
 export default NavBar;
-// change git user
