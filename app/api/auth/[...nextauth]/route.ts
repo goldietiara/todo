@@ -1,11 +1,13 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, { NextAuthOptions, User, getServerSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { env } from "@/lib/env";
 import jsonwebtoken from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
+import { createUser, getUser } from "@/lib/actions";
+import { TypeSession, TypeUser } from "@/types";
+import { AdapterUser } from "next-auth/adapters";
 
 export const authOptions: NextAuthOptions = {
-  // adapter: PrismaAdapter(prisma as PrismaClient) as Adapter,
   providers: [
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
@@ -35,50 +37,50 @@ export const authOptions: NextAuthOptions = {
     logo: "/chiyo-chichi-fliped.PNG",
   },
   callbacks: {
-    // async session({ session }) {
-    //   const email = session?.user?.email as string;
-    //   try {
-    //     const data = (await getUser(email)) as { user?: UserProfile };
-    //     const newSession = {
-    //       ...session,
-    //       user: {
-    //         ...session.user,
-    //         ...data?.user,
-    //       },
-    //     };
-    //     return newSession;
-    //   } catch (error: any) {
-    //     console.error("Error retrieving user data: ", error.message);
-    //     return session;
-    //   }
-    // },
-    // async signIn({ user }: { user: AdapterUser | User }) {
-    //   try {
-    //     const userExists = (await getUser(user?.email as string)) as {
-    //       user?: UserProfile;
-    //     };
-    //     if (!userExists.user) {
-    //       await createUser(
-    //         user.name as string,
-    //         user.email as string,
-    //         user.image as string
-    //       );
-    //     }
-    //     return true;
-    //   } catch (error: any) {
-    //     console.log("Error checking if user exists: ", error.message);
-    //     return false;
-    //   }
-    // },
+    async session({ session }) {
+      const email = session?.user?.email as string;
+      try {
+        const data = (await getUser(email)) as { user?: TypeUser };
+        const newSession = {
+          ...session,
+          user: {
+            ...session.user,
+            ...data?.user,
+          },
+        };
+        return newSession;
+      } catch (error: any) {
+        console.error("Error retrieving user data: ", error.message);
+        return session;
+      }
+    },
+    async signIn({ user }: { user: AdapterUser | User }) {
+      try {
+        const userExists = (await getUser(user?.email as string)) as {
+          user?: TypeUser;
+        };
+        if (!userExists.user) {
+          await createUser(
+            user.name as string,
+            user.email as string,
+            user.image as string
+          );
+        }
+        return true;
+      } catch (error: any) {
+        console.log("Error checking if user exists: ", error.message);
+        return false;
+      }
+    },
   },
 };
 
-// export async function getCurrentUser() {
-//   const session = (await getServerSession(authOptions)) as SessionInterface;
+export async function getCurrentUser() {
+  const session = (await getServerSession(authOptions)) as TypeSession;
 
-//   return session;
-// }
+  return session;
+}
 
-const handler = NextAuth(authOptions);
+// const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+// export { handler as GET, handler as POST };

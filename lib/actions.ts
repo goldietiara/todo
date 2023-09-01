@@ -4,7 +4,6 @@ import { GraphQLClient } from "graphql-request";
 const isProduction = process.env.NODE_ENV === "production";
 
 // npx grafbase@0.24 dev
-
 // GRAFBASE
 const apiUrl = isProduction
   ? process.env.NEXT_PUBLIC_GRAFBASE_API_URL || ""
@@ -20,7 +19,7 @@ const serverUrl = isProduction
 
 const client = new GraphQLClient(apiUrl);
 
-//client request, a connection to graphbase database
+//client request, a connection to grafbase database
 const makeGraphQLRequest = async (query: string, variables: {}) => {
   try {
     return await client.request(query, variables);

@@ -19,10 +19,11 @@ const User = g
 const Todo = g
   .model("Todo", {
     title: g.string(),
-    category: g.string().unique(),
+    category: g.string(),
     status: g.boolean(),
     createdBy: g.relation(() => User),
   })
+  .search()
   .auth((rules) => {
     rules.public().read(), rules.private().create().delete().update();
   });
