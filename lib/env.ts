@@ -1,7 +1,6 @@
 import zod from "zod";
 
 const envSchema = zod.object({
-  // DATABASE_URL: zod.string().nonempty(),
   GOOGLE_CLIENT_ID: zod.string().nonempty(),
   GOOGLE_CLIENT_SECRET: zod.string().nonempty(),
   NEXTAUTH_URL: zod.string().nonempty(),
