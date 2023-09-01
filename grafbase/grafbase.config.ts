@@ -20,7 +20,7 @@ const Todo = g
   .model("Todo", {
     title: g.string(),
     category: g.string().unique(),
-    status: g.string().optional(),
+    status: g.boolean(),
     createdBy: g.relation(() => User),
   })
   .auth((rules) => {
