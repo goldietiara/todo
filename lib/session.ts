@@ -66,6 +66,7 @@ export const authOptions: NextAuthOptions = {
             user.image as string
           );
         }
+        console.log(createUser);
         return true;
       } catch (error: any) {
         console.log("Error checking if user exists: ", error.message);

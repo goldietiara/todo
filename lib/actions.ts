@@ -1,6 +1,11 @@
-import { createUserMutation, getUserQuery } from "@/graphql";
+import {
+  createTodoMutation,
+  createUserMutation,
+  getUserQuery,
+} from "@/graphql";
 import { GraphQLClient } from "graphql-request";
 import { env } from "@/lib/env";
+import { TypeTodoForm } from "@/types";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -48,4 +53,21 @@ export const fetchToken = async () => {
   } catch (err) {
     throw err;
   }
+};
+
+export const addTodo = async (
+  form: TypeTodoForm,
+  creatorId: string,
+  token: string
+) => {
+  client.setHeader("Authorization", `Bearer ${token}`);
+  const variables = {
+    input: {
+      ...form,
+      createdBy: {
+        link: creatorId,
+      },
+    },
+  };
+  return makeGraphQLRequest(createTodoMutation, variables);
 };

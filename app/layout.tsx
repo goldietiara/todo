@@ -16,9 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`flex flex-col justify-between font-light bg-Ivory ${inter.className}`}
-      >
+      <body className={`font-light bg-Ivory ${inter.className}`}>
         <NavBar />
         <main className="max-w-7×1 m-auto min-w-[300px] p-4">{children}</main>
       </body>

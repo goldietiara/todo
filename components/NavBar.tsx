@@ -22,21 +22,9 @@ const NavBar = async () => {
           />
         </Link>
       </div>
-      <div className="flex items-center justify-start border-1 border-black w-full">
-        <ul className="flex h-full w-full uppercase">
-          {NavLinks.map((v, i, a) => {
-            return (
-              <Link
-                href={v.href}
-                key={v.key}
-                className=" w-full h-full border-r-1 border-black flex justify-evenly items-center text-center hover:underline"
-              >
-                {v.text}
-              </Link>
-            );
-          })}
-        </ul>
-        <div className="  w-[30%] h-full flex justify-center items-center px-5 gap-10 ">
+      <div className="grid grid-cols-5 items-center justify-start border-1 border-black w-full uppercase ">
+        <p className=" col-span-4 pl-10">Hi, {session?.user?.name}!</p>
+        <div className="  w-full h-full flex justify-center items-center px-5 gap-10 border-l-1 border-black">
           {session?.user ? (
             <UserMenuButton session={session} />
           ) : (

@@ -5,6 +5,7 @@ const nextConfig = {
   },
   experimental: {
     serverComponentsExternalPackages: ["graphql-request"],
+    serverActions: true,
   },
 };
 
