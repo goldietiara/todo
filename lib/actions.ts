@@ -2,6 +2,7 @@ import {
   createTodoMutation,
   createUserMutation,
   getUserQuery,
+  getUserTodoQuery,
 } from "@/graphql";
 import { GraphQLClient } from "graphql-request";
 import { env } from "@/lib/env";
@@ -70,4 +71,9 @@ export const addTodo = async (
     },
   };
   return makeGraphQLRequest(createTodoMutation, variables);
+};
+
+export const getUserTodo = (id: string) => {
+  client.setHeader("x-api-key", apiKey);
+  return makeGraphQLRequest(getUserTodoQuery, { id });
 };

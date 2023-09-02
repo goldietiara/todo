@@ -64,7 +64,23 @@ export const getUserQuery = `
     }
   }
 `;
-// export const getTodoByIdQuery = ``;
-export const getTodoByUserQuery = ``;
+export const getUserTodoQuery = `
+  query GetUser($id: ID!, $first: Int = 10) {
+    user(by: { id: $id }) {
+      name
+      email
+      avatarUrl
+      todos(first: $first) {
+        edges {
+          node {
+            title
+            category
+            status
+          }
+        }
+      }
+    }
+  }
+`;
 export const getTodoByStatusQuery = ``;
 export const getTodoByCategoryQuery = ``;

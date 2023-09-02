@@ -12,8 +12,8 @@ export default async function Home() {
     "use server";
 
     const { token } = await fetchToken();
-    const title = formData.get("title")?.toString() || "wawa";
-    const category = formData.get("category")?.toString() || "wawa";
+    const title = formData.get("title")?.toString() || "";
+    const category = formData.get("category")?.toString() || "";
     const status = false;
     const form = { title, category, status };
 
