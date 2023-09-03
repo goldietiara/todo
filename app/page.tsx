@@ -1,4 +1,10 @@
-import { deleteTodo, fetchToken, getUserTodo, updateTodo } from "@/lib/actions";
+import {
+  deleteTodo,
+  fetchToken,
+  getTodobyId,
+  getUserTodo,
+  updateTodo,
+} from "@/lib/actions";
 import { getCurrentUser } from "@/lib/session";
 import { TypeTodo, TypeTodoForm, TypeUser } from "@/types";
 import { PiTrashLight } from "react-icons/pi";
@@ -11,14 +17,15 @@ export default async function Home() {
 
   if (!session) {
     return <p> Please login first</p>;
-  } else if (!session.user) {
-    return <p> Please login first</p>;
   }
 
   const todo = (await getUserTodo(session.user.id)) as { user: TypeUser };
   const result = todo.user.todos.edges;
   const { token } = await fetchToken();
   console.log(result);
+  if (!result) {
+    return null;
+  }
 
   const updatingTodo = async (node: TypeTodo) => {
     "use server";
@@ -40,7 +47,11 @@ export default async function Home() {
   const deletingTodo = async (node: TypeTodo) => {
     "use server";
 
-    await deleteTodo(node.id, token);
+    const todoById = (await getTodobyId(node.id)) as any;
+    const result = todoById.todo as TypeTodo;
+    console.log(result);
+    console.log(result.id);
+    await deleteTodo(result.id, token);
     console.log("todo deleted");
 
     revalidatePath("/");

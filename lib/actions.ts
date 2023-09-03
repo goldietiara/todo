@@ -2,6 +2,7 @@ import {
   addTodoMutation,
   createUserMutation,
   deleteTodoMutation,
+  getTodoByIdQuery,
   getUserQuery,
   getUserTodoQuery,
   updateTodoMutation,
@@ -100,4 +101,9 @@ export const deleteTodo = (id: string, token: string) => {
   client.setHeader("Authorization", `Bearer ${token}`);
 
   return makeGraphQLRequest(deleteTodoMutation, { id });
+};
+
+export const getTodobyId = (id: string) => {
+  client.setHeader("x-api-key", apiKey);
+  return makeGraphQLRequest(getTodoByIdQuery, { id });
 };

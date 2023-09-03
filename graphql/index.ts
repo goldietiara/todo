@@ -20,9 +20,9 @@ export const addTodoMutation = `
         category
         status
         id
-          createdBy {
-            email
-            name
+        createdBy {
+          email
+          name
         }
       }
     }
@@ -37,9 +37,9 @@ export const updateTodoMutation = `
         title
         category
         status
-          createdBy {
-            email
-            name
+        createdBy {
+          email
+          name
         }
       }
     }
@@ -78,17 +78,26 @@ export const getUserTodoQuery = `
             category
             status
             id
-            createdBy {
-              name
-              email
-              avatarUrl
-              id
-            }
           }
         }
       }
     }
   }
 `;
-export const getTodoByStatusQuery = ``;
+export const getTodoByIdQuery = `
+query GetUser($id: ID!) {
+  todo(by: { id: $id }) {
+    title
+    category
+    status
+    id
+    createdBy {
+      name
+      email
+      avatarUrl
+      id
+    }
+  }
+}
+`;
 export const getTodoByCategoryQuery = ``;

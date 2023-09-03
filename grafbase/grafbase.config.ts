@@ -21,7 +21,7 @@ const Todo = g
     title: g.string().search(),
     category: g.string().search(),
     status: g.boolean().search(),
-    createdBy: g.relation(() => User),
+    createdBy: g.relation(User),
   })
   .auth((rules) => {
     rules.public().read(), rules.private().create().delete().update();
