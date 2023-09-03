@@ -18,6 +18,7 @@ export default async function Home() {
   const todo = (await getUserTodo(session.user.id)) as { user: TypeUser };
   const result = todo.user.todos.edges;
   const { token } = await fetchToken();
+  console.log(result);
 
   const updatingTodo = async (node: TypeTodo) => {
     "use server";

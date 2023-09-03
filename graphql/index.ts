@@ -78,6 +78,12 @@ export const getUserTodoQuery = `
             category
             status
             id
+            createdBy {
+              name
+              email
+              avatarUrl
+              id
+            }
           }
         }
       }

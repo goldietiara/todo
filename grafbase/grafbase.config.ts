@@ -12,7 +12,7 @@ const User = g
       .optional(),
   })
   .auth((rules) => {
-    rules.public().read(), rules.private().delete();
+    rules.public().read();
   });
 
 //@ts-ignore
