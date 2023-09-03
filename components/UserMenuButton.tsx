@@ -2,6 +2,7 @@
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { VscMenu } from "react-icons/vsc";
 
@@ -13,9 +14,9 @@ export default function UserMenuButton({ session }: UserMenuButtonProps) {
   const user = session?.user;
 
   return (
-    <div className="p-10">
+    <div className="w-full h-full grid place-items-center dropdown cursor-pointer">
       <div className="dropdown inline-block relative">
-        <button className="bg-gray-300 uppercase py-2 px-4 inline-flex items-center">
+        <button className="bg-gray-300 uppercase px-4 inline-flex items-center">
           <VscMenu className=" shrink-0 text-xl" />
         </button>
         <ul className=" dropdown-menu absolute hidden text-gray-700 bg-Ivory min-w-fit w-64 -right-[200%] z-50 text-center border-x-1 border-t-1 border-black">
@@ -30,11 +31,16 @@ export default function UserMenuButton({ session }: UserMenuButtonProps) {
             <p className=" font-normal">{user?.name}</p>
             <p className=" text-sm">{user?.email}</p>
           </li>
+          {/* <Link href={"/add-todo"}> */}
           <li className=" cursor-pointer hover:bg-black hover:text-Ivory transition-all ease-in-out duration-300 py-3 px-2 border-b-1 border-black">
             <a href="/add-todo">Add Todo</a>
           </li>
-          <li className=" cursor-pointer hover:bg-black hover:text-Ivory transition-all ease-in-out duration-300 py-3 px-2 border-b-1 border-black">
-            <a onClick={() => signOut()}>Sign Out</a>
+          {/* </Link> */}
+          <li
+            className=" cursor-pointer hover:bg-black hover:text-Ivory transition-all ease-in-out duration-300 py-3 px-2 border-b-1 border-black"
+            onClick={() => signOut()}
+          >
+            <a>Sign Out</a>
           </li>
         </ul>
       </div>

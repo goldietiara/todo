@@ -1,10 +1,10 @@
 import { Session, User } from "next-auth";
 
-export type TypeTodoState = {
-  title: string;
-  category: string;
-  status: boolean;
-};
+// export type TypeTodoState = {
+//   title: string;
+//   category: string;
+//   status: boolean;
+// };
 
 export type TypeTodo = {
   title: string;
@@ -48,4 +48,9 @@ export type TypeTodoForm = {
   title: string;
   category: string;
   status: boolean;
+};
+
+export type TypeUpdateTodo = {
+  title: string;
+  category: string;
 };

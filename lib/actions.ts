@@ -1,8 +1,10 @@
 import {
-  createTodoMutation,
+  addTodoMutation,
   createUserMutation,
+  deleteTodoMutation,
   getUserQuery,
   getUserTodoQuery,
+  updateTodoMutation,
 } from "@/graphql";
 import { GraphQLClient } from "graphql-request";
 import { env } from "@/lib/env";
@@ -70,10 +72,32 @@ export const addTodo = async (
       },
     },
   };
-  return makeGraphQLRequest(createTodoMutation, variables);
+  return makeGraphQLRequest(addTodoMutation, variables);
 };
 
 export const getUserTodo = (id: string) => {
   client.setHeader("x-api-key", apiKey);
   return makeGraphQLRequest(getUserTodoQuery, { id });
+};
+
+export const updateTodo = (
+  form: TypeTodoForm,
+  projectId: string,
+  token: string
+) => {
+  let updatedForm = { ...form };
+
+  const variables = {
+    id: projectId,
+    input: updatedForm,
+  };
+  client.setHeader("Authorization", `Bearer ${token}`);
+
+  return makeGraphQLRequest(updateTodoMutation, variables);
+};
+
+export const deleteTodo = (id: string, token: string) => {
+  client.setHeader("Authorization", `Bearer ${token}`);
+
+  return makeGraphQLRequest(deleteTodoMutation, { id });
 };

@@ -12,7 +12,7 @@ export const createUserMutation = `
   }
 `;
 
-export const createTodoMutation = `
+export const addTodoMutation = `
   mutation TodoCreate($input: TodoCreateInput!) {
     todoCreate(input: $input) {
       todo {
@@ -33,6 +33,7 @@ export const updateTodoMutation = `
   mutation TodoUpdate($id: ID!, $input: TodoUpdateInput!) {
     todoUpdate(by: { id: $id }, input: $input) {
       todo {
+        id
         title
         category
         status
@@ -65,17 +66,18 @@ export const getUserQuery = `
   }
 `;
 export const getUserTodoQuery = `
-  query GetUser($id: ID!, $first: Int = 10) {
+  query GetUser($id: ID!, $last: Int = 10) {
     user(by: { id: $id }) {
       name
       email
       avatarUrl
-      todos(first: $first) {
+      todos(last: $last) {
         edges {
           node {
             title
             category
             status
+            id
           }
         }
       }
