@@ -4,11 +4,14 @@ import { TypeTodo, TypeTodoForm, TypeUser } from "@/types";
 import { PiTrashLight } from "react-icons/pi";
 import Button from "@/components/Button";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export default async function Home() {
   const session = await getCurrentUser();
 
   if (!session) {
+    return <p> Please login first</p>;
+  } else if (!session.user) {
     return <p> Please login first</p>;
   }
 
@@ -30,7 +33,7 @@ export default async function Home() {
 
     await updateTodo(form as TypeTodoForm, node.id, token);
     console.log("todo updated");
-    redirect("/");
+    revalidatePath("/");
   };
 
   const deletingTodo = async (node: TypeTodo) => {
@@ -39,7 +42,7 @@ export default async function Home() {
     await deleteTodo(node.id, token);
     console.log("todo deleted");
 
-    redirect("/");
+    revalidatePath("/");
   };
 
   return (
